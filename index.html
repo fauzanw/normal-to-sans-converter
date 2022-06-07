@@ -4,7 +4,10 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="white"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF">
 
+    <link rel="manifest" href="/manifest.json">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -14,19 +17,19 @@
   <body class="container">
     <h1 class="mt-2">Convert normal text to sans!</h1>
     <div class="form-group">
+        <label for="normalText">Masukkan teks anda:</label>
         <textarea type="text" id="normalText" class="form-control" rows="10" cols="20" wrap="off"></textarea>
     </div>
-    <div class="form-group row">
-        <div class="col-10">
-            <select name="styleText" id="styleText" class="form-control">
-                <option value="reguler">Reguler</option>
-                <option value="italic">Italic</option>
-                <option value="bold">Bold</option>
-            </select>
-        </div>
-        <div class="col-2">
-            <button class="btn btn-danger btn-block" id="btnClear">Clear</button>
-        </div>
+    <div class="form-group">
+        <label for="styleText">Style:</label>
+        <select name="styleText" id="styleText" class="form-control">
+            <option value="reguler">Reguler</option>
+            <option value="italic">Italic</option>
+            <option value="bold">Bold</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-danger btn-block" id="btnClear">Clear</button>
     </div>
     <!-- <div class="row form-group">
         <div class="col-6">
@@ -36,6 +39,7 @@
         </div>
     </div> -->
     <div class="form-group">
+        <label for="resultText">Hasil:</label>
         <textarea name="resultText" id="resultText" class="form-control" readonly rows="10" cols="20" wrap="off"></textarea>
     </div>
     <div class="form-group">
@@ -144,6 +148,15 @@
             }
             resultText.val(convert(oldNormalText, currentStyleText))
         })
+
+        window.onload = () => {
+            'use strict';
+
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker
+                        .register('sw.js');
+            }
+        }
     </script>
   </body>
 </html>
