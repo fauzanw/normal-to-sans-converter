@@ -1,0 +1,9 @@
+{
+    "name": "NTS Converter",
+    "short_name": "NTS",
+    "lang": "id-ID",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "white",
+    "theme_color": "white"
+  }
