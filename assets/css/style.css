@@ -1,0 +1,9 @@
+textarea {
+    max-height: 130px;
+    overflow: scroll;
+    resize: none;
+}
+
+button#btnCopy {
+    transition: 1.5s ease-in;
+}

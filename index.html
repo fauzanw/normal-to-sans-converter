@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <title>Hello, world!</title>
+  </head>
+  <body class="container">
+    <h1 class="mt-2">Convert normal text to sans!</h1>
+    <div class="form-group">
+        <textarea type="text" id="normalText" class="form-control" rows="10" cols="20" wrap="off"></textarea>
+    </div>
+    <div class="form-group row">
+        <div class="col-10">
+            <select name="styleText" id="styleText" class="form-control">
+                <option value="reguler">Reguler</option>
+                <option value="italic">Italic</option>
+                <option value="bold">Bold</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-danger btn-block" id="btnClear">Clear</button>
+        </div>
+    </div>
+    <!-- <div class="row form-group">
+        <div class="col-6">
+            <button class="btn btn-primary btn-block" id="btnConvert">Convert</button>
+        </div>
+        <div class="col-12">
+        </div>
+    </div> -->
+    <div class="form-group">
+        <textarea name="resultText" id="resultText" class="form-control" readonly rows="10" cols="20" wrap="off"></textarea>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-success btn-block" id="btnCopy" disabled>Copy</button>
+    </div>
+    
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="assets/js/jquery-3.5.1.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script>
+        var btnConvert = $('#btnConvert');
+        var btnClear = $('#btnClear');
+        var btnCopy = $('#btnCopy');
+        var normalText = $('#normalText');
+        var resultText = $('#resultText');
+        var styleText = $('#styleText');
+        function convert(text, styleFont) {
+            var result = text;
+            const reguler = {
+                a: '𝖺', b: '𝖻', c: '𝖼', d: '𝖽', e: '𝖾', f: '𝖿', g: '𝗀', h: '𝗁', i: '𝗂', j: '𝗃', k: '𝗄', l: '𝗅', m: '𝗆', n: '𝗇', o: '𝗈', p: '𝗉', q: '𝗊', r: '𝗋', s: '𝗌', t: '𝗍', u: '𝗎', v: '𝗏', w: '𝗐', x: '𝗑', y: '𝗒', z: '𝗓', 
+                A: '𝖠', B: '𝖡', C: '𝖢', D: '𝖣', E: '𝖤', F: '𝖥', G: '𝖦', H: '𝖧', I: '𝖨', J: '𝖩', K: '𝖪', L: '𝖫', M: '𝖬', N: '𝖭', O: '𝖮', P: '𝖯', Q: '𝖰', R: '𝖱', S: '𝖲', T: '𝖳', U: '𝖴', V: '𝖵', W: '𝖶', X: '𝖷', Y: '𝖸', Z: '𝖹',
+                0: '𝟢', 1: '𝟣', 2: '𝟤', 3: '𝟥', 4: '𝟦', 5: '𝟧', 6: '𝟨', 7: '𝟩', 8: '𝟪', 9: '𝟫'
+            }
+            const italic= {
+                a: '𝘢', b: '𝘣', c: '𝘤', d: '𝘥', e: '𝘦', f: '𝘧', g: '𝘨', h: '𝘩', i: '𝘪', j: '𝘫', k: '𝘬', l: '𝘭', m: '𝘮', n: '𝘯', o: '𝘰', p: '𝘱', q: '𝘲', r: '𝘳', s: '𝘴', t: '𝘵', u: '𝘶', v: '𝘷', w: '𝘸', x: '𝘹', y: '𝘺', z: '𝘻', 
+                A: '𝘈', B: '𝘉', C: '𝘊', D: '𝘋', E: '𝘌', F: '𝘍', G: '𝘎', H: '𝘏', I: '𝘐', J: '𝘑', K: '𝘒', L: '𝘓', M: '𝘔', N: '𝘕', O: '𝘖', P: '𝘗', Q: '𝘖', R: '𝘙', S: '𝘚', T: '𝘛', U: '𝘜', V: '𝘝', W: '𝘞', X: '𝘟', Y: '𝘠', Z: '𝘡',
+                0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9'
+            }
+            const bold = {
+                a: '𝗮', b: '𝗯', c: '𝗰', d: '𝗱', e: '𝗲', f: '𝗳', g: '𝗴', h: '𝗵', i: '𝗶', j: '𝗷', k: '𝗸', l: '𝗹', m: '𝗺', n: '𝗻', o: '𝗼', p: '𝗽', q: '𝗾', r: '𝗿', s: '𝘀', t: '𝘁', u: '𝘂', v: '𝘃', w: '𝘄', x: '𝘅', y: '𝘆', z: '𝘇', 
+                A: '𝗔', B: '𝗕', C: '𝗖', D: '𝗗', E: '𝗘', F: '𝗙', G: '𝗚', H: '𝗛', I: '𝗜', J: '𝗝', K: '𝗞', L: '𝗟', M: '𝗠', N: '𝗡', O: '𝗢', P: '𝗣', Q: '𝗤', R: '𝗥', S: '𝗦', T: '𝗧', U: '𝗨', V: '𝗩', W: '𝗪', X: '𝗫', Y: '𝗬', Z: '𝗭',
+                0: '𝟬', 1: '𝟭', 2: '𝟐', 3: '𝟑', 4: '𝟒', 5: '𝟓', 6: '𝟔', 7: '𝟕', 8: '𝟖', 9: '𝟗'
+            }
+            var style;
+            switch(styleFont) {
+                case 'reguler':
+                    style = reguler;
+                    break;
+                case 'italic':
+                    style = italic;
+                    break;
+                case 'bold':
+                    style = bold;
+                    break;
+                default:
+                    break;
+            }
+            Object.keys(style).map(listR => {
+                const strRegExp = new RegExp(listR, 'g');
+                result = result.replace(strRegExp, style[listR]);
+            })
+            return result;
+        }
+        function copy(elem) {
+            // set focus to hidden element and select the content
+            $(elem).focus();
+            // select all the text therein  
+            $(elem).select();
+
+            var succeed;
+            try {
+                succeed = document.execCommand("copy");
+            } catch(e) {
+                succeed = false;
+            }
+
+            return succeed;
+
+        }
+        // btnConvert.on('click', function() {
+        //     resultText.val(convert(normalText.val(), styleText.val()));
+        // });
+        btnClear.on('click', () => {
+            normalText.val('');
+            resultText.val('');
+        })
+        btnCopy.on('click', function() {
+            if(copy("#resultText")) {
+                btnCopy.html("Text Copied!")
+                btnCopy.attr('disabled', 'true');
+                setTimeout(function() {
+                    btnCopy.html('Copy');
+                    btnCopy.removeAttr('disabled')
+                }, 1500);
+            }else {
+                alert('Copy failed')
+            }
+        })
+        var oldNormalText = normalText.val();
+        normalText.on('change keyup paste input', function () {
+            var currentVal = $(this).val()
+            btnCopy.removeAttr('disabled')
+            console.log({currentVal, oldNormalText})
+            if(currentVal == oldNormalText) {
+                return;
+            }
+            oldNormalText = currentVal;
+            resultText.val(convert(currentVal, styleText.val()))
+        })
+        styleText.on('change', function() {
+            var currentStyleText = $(this).val();
+            if(!oldNormalText) {
+                return;
+            }
+            resultText.val(convert(oldNormalText, currentStyleText))
+        })
+    </script>
+  </body>
+</html>
